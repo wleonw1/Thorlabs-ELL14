@@ -1,7 +1,5 @@
 #!/usr/bin/python3 -u
 
-from ast import Num
-from gzip import READ
 from tango import AttrWriteType, DevState, DebugIt
 from tango.server import Device, attribute, command, device_property
 
@@ -15,9 +13,6 @@ class ELL14(Device):
     
     Port = device_property(dtype='str')
     Address = device_property(dtype='int')
-    
-    
-
     
     position = attribute(
         min_value = 0.0,
@@ -36,12 +31,8 @@ class ELL14(Device):
         label = "number of Movements",
         format = "%5.0f",
         doc= "number of movements since last Swipe operation",
-        #hw_memorized = True,
-        #access=AttrWriteType.READ_WRITE
+
         )
-    
-    
-    #numOperations=0   
 
     def init_device(self):
         Device.init_device(self)
@@ -72,8 +63,6 @@ class ELL14(Device):
         self.position = self.stage.get_position()
         return self.position
 
-    
-
 
     @DebugIt()
     def write_position(self, value):
@@ -82,7 +71,6 @@ class ELL14(Device):
         self.counter +=1
 
     def read_numOperations(self):
-        
         return self.counter
 
     
